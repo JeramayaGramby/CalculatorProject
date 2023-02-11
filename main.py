@@ -1,10 +1,9 @@
-'''Importing all necessary packages'''
 import os
 import tkinter as tk
 import math
 import pathlib
 
-'''Initializing Calculator Properties'''
+
 calculator_color = "#4222ff"
 label_color = "#000000"
 button_background_color = "#583cff"
@@ -14,7 +13,6 @@ body_font = ("Akzidenz-Grotesk", 42, "bold")
 button_font = ("Futura", 24, "bold")
 operator_font = ("Akzidenz-Grotesk", 20, "bold")
 
-# 375x667 were the original dimensions
 class Calculator:
     def __init__(self):
         self.window = tk.Tk()
@@ -23,12 +21,14 @@ class Calculator:
         self.window.geometry("375x667")
         self.window.resizable(0,0)
         self.window.title("Calculator V1")
+        
         # Frame Creation
         self.total_expression = ""
         self.current_expression = ""
         self.display_frame = self.create_display_frame()
 
         self.total_label, self.label = self.create_display_labels()
+        
         # Button Creation
         self.digits = {
             7:(3,1), 8:(3,2), 9:(3,3),
@@ -66,6 +66,7 @@ class Calculator:
         self.create_sin_button()
         self.create_cos_button()
         self.create_tan_button()
+    
     # Creating and initializing label properties
     def create_display_labels(self):
         total_label= tk.Label(self.display_frame, text=self.total_expression, anchor=tk.E, bg=calculator_color,
@@ -79,6 +80,7 @@ class Calculator:
         label.pack(expand=True, fill="both")
 
         return total_label,label
+
     # Creating the dimensions of the window
     def create_display_frame(self):
         frame = tk.Frame(self.window, height=221, bg=calculator_color)
@@ -94,18 +96,18 @@ class Calculator:
                                font=button_font, borderwidth=0, command=lambda x=digit: self.add_to_expression(x))
             button.grid(row=grid_value[0], column=grid_value[1], sticky=tk.NSEW, columnspan=1)
 
-    # Creating functionality for the clear button
+    # Creating the clear button
     def clear(self):
         self.current_expression = ""
         self.total_expression = ""
         self.update_current_label()
         self.update_total_label()
 
-    # Creating "clear" button
     def create_clear_button(self):
         button = tk.Button(self.buttons_frame, text="C", bg=operator_button_color, fg=label_color,
                            font=operator_font, borderwidth=0, command=self.clear)
         button.grid(row=1, column=4, sticky=tk.NSEW)
+    
     # Creating "square" button
     def square(self):
         self.current_expression = str(eval(f"{self.current_expression}*{self.current_expression}"))
@@ -115,6 +117,7 @@ class Calculator:
         button = tk.Button(self.buttons_frame, text="x\u00B2", bg=operator_button_color, fg=label_color,
                            font=operator_font, borderwidth=0, command=self.square)
         button.grid(row=2, column=2, sticky=tk.NSEW)
+    
     # Creating "square root" button
     def sqrt(self):
         self.current_expression = str(eval(f"{self.current_expression}**0.5"))
